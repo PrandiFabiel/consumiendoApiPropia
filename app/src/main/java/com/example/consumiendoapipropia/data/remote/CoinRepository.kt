@@ -15,9 +15,9 @@ class CoinRepository @Inject constructor(
         try {
             emit(Resource.Loading())
 
-            val exchanges = api.getCoins()
+            val coins = api.getCoins()
 
-            emit(Resource.Success(exchanges))
+            emit(Resource.Success(coins))
 
         } catch (e: HttpException) {
             emit(Resource.Error(e.message ?: "Error HTTP general"))

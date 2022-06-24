@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.consumiendoapipropia.data.remote.CoinRepository
 import com.example.consumiendoapipropia.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
+@HiltViewModel
 class CoinViewModel @Inject constructor(
     private val coinRepository: CoinRepository
 ) : ViewModel() {
@@ -23,7 +25,7 @@ class CoinViewModel @Inject constructor(
                     _state.value = CoinListState(isLoading = true)
                 }
                 is Resource.Success -> {
-                    _state.value = CoinListState(exchanges = result.data ?: emptyList())
+                    _state.value = CoinListState(coins = result.data ?: emptyList())
                 }
                 is Resource.Error -> {
                     _state.value = CoinListState(error = result.message ?: "Error")
