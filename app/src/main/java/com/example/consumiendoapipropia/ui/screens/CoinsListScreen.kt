@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.consumiendoapipropia.data.remote.dto.CoinsDto
@@ -83,12 +84,12 @@ fun CoinsItem(
             .fillMaxWidth()
             .padding(6.dp)) {
             Column() {
-                Image(
-                    painter = rememberAsyncImagePainter(model = ImageRequest.Builder(LocalContext.current)
-                        .data(img)
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(coinsDto.imgUrl)
                         .crossfade(true)
                         .size(90)
-                        .build()),
+                        .build(),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.clip(CircleShape),
                     contentDescription = "algo",
@@ -120,7 +121,7 @@ fun CoinsItem(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = coinsDto.valor.toString(),
+                    text = coinsDto.valor,
                     style = MaterialTheme.typography.body1,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
