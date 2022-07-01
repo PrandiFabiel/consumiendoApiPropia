@@ -41,7 +41,7 @@ fun CoinsRegisterScreen (
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "ArrowBack",
                         modifier = Modifier.clickable {
-
+                            onSave()
                         }
                     )
                 }
@@ -109,7 +109,7 @@ fun CoinsRegisterScreen (
 
             Button(
                 onClick = {
-
+                          onSave()
                 },
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
             ) {

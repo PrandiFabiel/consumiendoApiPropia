@@ -10,8 +10,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.consumiendoapipropia.ui.screens.CoinsListScreen
+import com.example.consumiendoapipropia.ui.screens.CoinsRegisterScreen
 import com.example.consumiendoapipropia.ui.theme.ConsumiendoApiPropiaTheme
+import com.example.consumiendoapipropia.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,8 +30,33 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    CoinsListScreen()
+                    CoinApp()
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun CoinApp(
+) {
+    ConsumiendoApiPropiaTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            val navHostController = rememberNavController( )
+
+            NavHost(navController = navHostController, startDestination = Screen.nameList.route){
+                composable(route = Screen.nameList.route ){
+                    CoinsListScreen(
+                        onNavigateToRegistro =  {navHostController.navigate(Screen.nameRegistro.route)}
+                    )
+                }
+                composable(route = Screen.nameRegistro.route ){
+                    CoinsRegisterScreen(onSave = {navHostController.navigateUp()})
+                }
+
             }
         }
     }
