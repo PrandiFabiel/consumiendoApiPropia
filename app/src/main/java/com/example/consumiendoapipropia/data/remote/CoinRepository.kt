@@ -26,4 +26,9 @@ class CoinRepository @Inject constructor(
         }
 
     }
+
+    suspend fun save(coinDto: CoinsDto){
+        val call = api.save(coinDto)
+        val coin = call.body()
+    }
 }
