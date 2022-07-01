@@ -34,7 +34,7 @@ fun CoinsRegisterScreen (
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Register of Coins")
+                    Text(text = "Registro de coins")
                 },
                 navigationIcon = {
                     Icon(
@@ -56,8 +56,9 @@ fun CoinsRegisterScreen (
         ) {
 
             OutlinedTextField(
-                value = "",
+                value = viewModel.name,
                 onValueChange = {
+                    viewModel.name = it
                     nameError = false
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -82,8 +83,9 @@ fun CoinsRegisterScreen (
             Spacer(modifier = Modifier.height(25.dp))
 
             OutlinedTextField(
-                value = "",
+                value = viewModel.price,
                 onValueChange = {
+                    viewModel.price = it
                     priceError = false
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -109,7 +111,20 @@ fun CoinsRegisterScreen (
 
             Button(
                 onClick = {
-                          onSave()
+                    nameError = viewModel.name.isBlank()
+                    priceError = viewModel.price.isBlank()
+                    if (!nameError && !priceError) {
+                        if (viewModel.price.toDouble() > 0) {
+                            viewModel.save()
+                            onSave()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "El precio no puede ser menor que 0",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 },
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
             ) {
