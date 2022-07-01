@@ -8,6 +8,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -26,6 +28,7 @@ import com.example.consumiendoapipropia.data.remote.dto.CoinsDto
 
 @Composable
 fun CoinsListScreen(
+    onNavigateToRegistro: () -> Unit,
     viewModel: CoinViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.value
@@ -38,7 +41,17 @@ fun CoinsListScreen(
                     Text("List of Coins")
                 }
             )
-        }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    onNavigateToRegistro()
+                },
+                backgroundColor = MaterialTheme.colors.primary
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Nuevo")
+            }
+        },
 
     ) {
         Column(
@@ -71,7 +84,6 @@ fun CoinsItem(
     coinsDto: CoinsDto,
     onClick: (CoinsDto) -> Unit
 ) {
-    val img = "https://cdn.icon-icons.com/icons2/3369/PNG/512/ethereum_coin_money_cryptocurrency_icon_210995.png"
     Card(
         elevation = 10.dp,
         shape = RoundedCornerShape(8.dp),

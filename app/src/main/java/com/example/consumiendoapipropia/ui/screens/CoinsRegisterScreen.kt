@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun  CoinsRegisterScreen (
+fun CoinsRegisterScreen (
     viewModel: CoinViewModel = hiltViewModel(),
     onSave: () -> Unit
 ){
