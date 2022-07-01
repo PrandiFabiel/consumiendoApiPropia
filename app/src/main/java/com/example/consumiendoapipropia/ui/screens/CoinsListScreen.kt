@@ -133,7 +133,7 @@ fun CoinsItem(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = coinsDto.valor,
+                    text = coinsDto.valor.toString(),
                     style = MaterialTheme.typography.body1,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -143,3 +143,4 @@ fun CoinsItem(
 
     }
 }
+
