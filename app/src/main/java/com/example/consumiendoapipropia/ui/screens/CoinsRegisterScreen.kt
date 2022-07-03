@@ -28,6 +28,7 @@ fun CoinsRegisterScreen (
     var nameError by rememberSaveable { mutableStateOf(false) }
     var priceError by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
+    val scaffoldState = rememberScaffoldState()
 
     Scaffold(
 
@@ -46,8 +47,8 @@ fun CoinsRegisterScreen (
                     )
                 }
             )
-        }
-
+        },
+        scaffoldState = scaffoldState
     ) {
         Column(
             modifier = Modifier

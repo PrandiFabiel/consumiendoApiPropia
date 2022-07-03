@@ -18,13 +18,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.consumiendoapipropia.data.remote.dto.CoinsDto
+import java.text.DecimalFormat
 
 @Composable
 fun CoinsListScreen(
@@ -82,20 +85,21 @@ fun CoinsListScreen(
 @Composable
 fun CoinsItem(
     coinsDto: CoinsDto,
-    onClick: (CoinsDto) -> Unit
+    onClick: () -> Unit
 ) {
     Card(
-        elevation = 10.dp,
         shape = RoundedCornerShape(8.dp),
+        elevation = 10.dp,
         modifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 7.dp)
             .fillMaxWidth()
-            .clickable { onClick(coinsDto) }
-            .padding(10.dp)
     ) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(6.dp)) {
-            Column() {
+        Row(modifier = Modifier
+            .clickable { onClick() }
+            .padding(10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(coinsDto.imgUrl)
@@ -104,43 +108,19 @@ fun CoinsItem(
                         .build(),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.clip(CircleShape),
-                    contentDescription = "algo",
+                    contentDescription = "Image",
                 )
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(text = coinsDto.descripcion)
             }
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)) {
-                Text(
-                    text = "Description: ",
-                    style = MaterialTheme.typography.body1,
-                    maxLines = 1,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = coinsDto.descripcion,
-                    style = MaterialTheme.typography.body1,
-                    maxLines = 1,
-                )
-            }
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)) {
-                Text(
-                    text = "Valor: ",
-                    style = MaterialTheme.typography.body1,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = coinsDto.valor.toString(),
-                    style = MaterialTheme.typography.body1,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
+            val decimalFormat = DecimalFormat("#,###.######")
+            Text(
+                text = "$ " + decimalFormat.format(coinsDto.valor),
+                textAlign = TextAlign.End,
+                fontWeight = FontWeight.Normal,
+                letterSpacing = 3.sp,
+            )
         }
 
     }
 }
-
