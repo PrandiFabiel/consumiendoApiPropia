@@ -55,7 +55,7 @@ fun CoinApp(
                     )
                 }
                 composable(route = Screen.nameRegistro.route ){
-                    CoinsRegisterScreen(onSave = {navHostController.navigateUp()})
+                    CoinsRegisterScreen(onSave = {navHostController.navigate(Screen.nameList.route)})
                 }
 
             }
