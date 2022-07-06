@@ -115,7 +115,12 @@ fun CoinsRegisterScreen (
                     nameError = viewModel.name.isBlank()
                     priceError = viewModel.price.isBlank()
                     if (!nameError && !priceError) {
-                        if (viewModel.price.toDouble() > 0) {
+                        if(!validar(viewModel.price)){
+                            Toast.makeText(context,
+                                "El precio debe ser un monto valido",
+                                Toast.LENGTH_LONG).show();
+                        }
+                        else if (viewModel.price.toDouble() > 0) {
                             viewModel.save()
                             onSave()
                         } else {
@@ -136,6 +141,14 @@ fun CoinsRegisterScreen (
     }
 }
 
+fun validar(price : String ) : Boolean{
+    try{
+        price.toDouble();
+        return true;
+    }catch(e : NumberFormatException){
+        return false;
+    }
+}
 
 @Composable
 fun TextObligatorio (error: Boolean){
